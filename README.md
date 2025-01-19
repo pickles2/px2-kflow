@@ -19,23 +19,8 @@ $ composer require pickles2/px2-kflow
 
 ```php
 $conf->funcs->processor->kflow = array(
-    // SCSS文法を処理する
+    // kflow文法を処理する
     'pickles2\px2kflow\kflow::processor',
-
-    // html のデフォルトの処理を追加
-    $conf->funcs->processor->html,
-);
-```
-
-
-## Options - オプション
-
-```php
-$conf->funcs->processor->kflow = array(
-    // SCSS文法を処理する
-    'pickles2\px2kflow\kflow::processor('.json_encode([
-        'enable_cache' => true, // キャッシュを有効にする (true = 有効, false = 無効, デフォルトは true)
-    ]).')',
 
     // html のデフォルトの処理を追加
     $conf->funcs->processor->html,
