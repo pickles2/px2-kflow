@@ -360,9 +360,9 @@ return call_user_func( function(){
 		'theme'=>'tomk79\pickles2\multitheme\theme::exec('.json_encode(array(
 			'param_theme_switch' => 'THEME',
 			'cookie_theme_switch' => 'THEME',
-			'path_theme_collection' => __DIR__.'/px-files/themes/',
+			'path_theme_collection' => __DIR__.'/themes/',
 			'attr_bowl_name_by' => 'data-contents-area',
-			'default_theme_id' => 'pickles',
+			'default_theme_id' => 'pickles2',
 		)).')',
 
 		// Apache互換のSSIの記述を解決する
@@ -400,6 +400,14 @@ return call_user_func( function(){
 	$conf->funcs->processor->md = array(
 		// Markdown文法を処理する
 		\picklesFramework2\processors\md\ext::exec(),
+
+		// html のデフォルトの処理を追加
+		$conf->funcs->processor->html,
+	);
+
+	$conf->funcs->processor->kflow = array(
+		// kflow文法を処理する
+		'pickles2\px2kflow\kflow::processor',
 
 		// html のデフォルトの処理を追加
 		$conf->funcs->processor->html,

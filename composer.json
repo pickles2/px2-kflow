@@ -20,6 +20,9 @@
             "php ./vendor/phpunit/phpunit/phpunit"
         ]
     } ,
+    "config": {
+        "process-timeout": 0
+    },
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.3.0",
