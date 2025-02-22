@@ -42,7 +42,7 @@ class kflow{
 		// CSSを出力する
 		if( strlen($kflowResult->css ?? '') ){
 			$realpath_css = $px->fs()->get_realpath($px->realpath_files('/style.css'));
-			if(!is_file($realpath_css)){
+			if(!is_file($realpath_css) || md5_file($realpath_css) !== md5($kflowResult->css)){
 				$px->fs()->save_file($realpath_css, $kflowResult->css);
 			}
 			$px->bowl()->replace( '<link rel="stylesheet" href="'.htmlspecialchars($px->path_files('/style.css')).'" />', 'head' );
@@ -51,9 +51,9 @@ class kflow{
 		// --------------------------------------
 		// JSを出力する
 		if( strlen($kflowResult->js ?? '') ){
-			$realpath_css = $px->fs()->get_realpath($px->realpath_files('/script.js'));
-			if(!is_file($realpath_css)){
-				$px->fs()->save_file($realpath_css, $kflowResult->js);
+			$realpath_js = $px->fs()->get_realpath($px->realpath_files('/script.js'));
+			if(!is_file($realpath_js) || md5_file($realpath_js) !== md5($kflowResult->js)){
+				$px->fs()->save_file($realpath_js, $kflowResult->js);
 			}
 			$px->bowl()->replace( '<script src="'.htmlspecialchars($px->path_files('/script.js')).'"></script>', 'foot' );
 		}
@@ -63,7 +63,7 @@ class kflow{
 		if( count($kflowResult->assets ?? array()) ){
 			foreach($kflowResult->assets as $asset){
 				$realpath_asset = $px->realpath_files('/resources/'.basename($asset->path));
-				if(!is_file($realpath_asset)){
+				if(!is_file($realpath_asset) || md5_file($realpath_asset) !== md5(base64_decode($asset->base64))){
 					$px->fs()->mkdir_r(dirname($realpath_asset));
 					$px->fs()->save_file($realpath_asset, base64_decode($asset->base64));
 				}
