@@ -40,22 +40,26 @@ class kflow{
 
 		// --------------------------------------
 		// CSSを出力する
+		$realpath_css = $px->fs()->get_realpath($px->realpath_files('/style.css'));
 		if( strlen($kflowResult->css ?? '') ){
-			$realpath_css = $px->fs()->get_realpath($px->realpath_files('/style.css'));
 			if(!is_file($realpath_css) || md5_file($realpath_css) !== md5($kflowResult->css)){
 				$px->fs()->save_file($realpath_css, $kflowResult->css);
 			}
 			$px->bowl()->replace( '<link rel="stylesheet" href="'.htmlspecialchars($px->path_files('/style.css')).'" />', 'head' );
+		}elseif(is_file($realpath_css)){
+			$px->fs()->rm($realpath_css);
 		}
 
 		// --------------------------------------
 		// JSを出力する
+		$realpath_js = $px->fs()->get_realpath($px->realpath_files('/script.js'));
 		if( strlen($kflowResult->js ?? '') ){
-			$realpath_js = $px->fs()->get_realpath($px->realpath_files('/script.js'));
 			if(!is_file($realpath_js) || md5_file($realpath_js) !== md5($kflowResult->js)){
 				$px->fs()->save_file($realpath_js, $kflowResult->js);
 			}
 			$px->bowl()->replace( '<script src="'.htmlspecialchars($px->path_files('/script.js')).'"></script>', 'foot' );
+		}elseif(is_file($realpath_js)){
+			$px->fs()->rm($realpath_js);
 		}
 
 		// --------------------------------------
