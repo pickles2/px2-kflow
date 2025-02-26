@@ -60,13 +60,24 @@ class kflow{
 
 		// --------------------------------------
 		// アセットを出力する
+		$asset_basename_list = array();
 		if( count($kflowResult->assets ?? array()) ){
 			foreach($kflowResult->assets as $asset){
+				$asset_basename_list[basename($asset->path)] = true;
 				$realpath_asset = $px->realpath_files('/resources/'.basename($asset->path));
 				if(!is_file($realpath_asset) || md5_file($realpath_asset) !== md5(base64_decode($asset->base64))){
 					$px->fs()->mkdir_r(dirname($realpath_asset));
 					$px->fs()->save_file($realpath_asset, base64_decode($asset->base64));
 				}
+			}
+		}
+
+		// 未定義のアセットを削除
+		$realpath_asset_dir = $px->realpath_files('/resources/');
+		$file_list = $px->fs()->ls($realpath_asset_dir);
+		foreach($file_list as $file_basename){
+			if( !($asset_basename_list[$file_basename] ?? null) ){
+				$px->fs()->rm($realpath_asset_dir.$file_basename);
 			}
 		}
 
