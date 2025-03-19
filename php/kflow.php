@@ -44,6 +44,7 @@ class kflow{
 		$realpath_css = $px->fs()->get_realpath($realpath_files_base.'/style.css');
 		if( strlen($kflowResult->css ?? '') ){
 			if(!is_file($realpath_css) || md5_file($realpath_css) !== md5($kflowResult->css)){
+				$px->fs()->mkdir_r(dirname($realpath_css));
 				$px->fs()->save_file($realpath_css, $kflowResult->css);
 			}
 			$px->bowl()->replace( '<link rel="stylesheet" href="'.htmlspecialchars($px->path_files_cache('/style.css')).'" />', 'head' );
@@ -56,6 +57,7 @@ class kflow{
 		$realpath_js = $px->fs()->get_realpath($realpath_files_base.'/script.js');
 		if( strlen($kflowResult->js ?? '') ){
 			if(!is_file($realpath_js) || md5_file($realpath_js) !== md5($kflowResult->js)){
+				$px->fs()->mkdir_r(dirname($realpath_js));
 				$px->fs()->save_file($realpath_js, $kflowResult->js);
 			}
 			$px->bowl()->replace( '<script src="'.htmlspecialchars($px->path_files_cache('/script.js')).'"></script>', 'foot' );
@@ -80,9 +82,11 @@ class kflow{
 		// 未定義のアセットを削除
 		$realpath_asset_dir = $px->realpath_files_cache('/resources/');
 		$file_list = $px->fs()->ls($realpath_asset_dir);
-		foreach($file_list as $file_basename){
-			if( !($asset_basename_list[$file_basename] ?? null) ){
-				$px->fs()->rm($realpath_asset_dir.$file_basename);
+		if( is_array($file_list) && count($file_list) ){
+			foreach($file_list as $file_basename){
+				if( !($asset_basename_list[$file_basename] ?? null) ){
+					$px->fs()->rm($realpath_asset_dir.$file_basename);
+				}
 			}
 		}
 
