@@ -30,7 +30,7 @@ $conf->funcs->processor->kflow = array(
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-kflow v0.1.1 (リリース日未定)
+### pickles2/px2-kflow v0.1.1 (2025年4月3日)
 
 - アセットの保存先を公開キャッシュディレクトリに変更した。
 
