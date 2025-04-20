@@ -17,15 +17,37 @@ class kflow {
 		$realpath_files_base = $px->realpath_files_cache();
 		$utils = new Utils();
 
+		$breadcrumb_info = array();
+		foreach($px->site()->get_breadcrumb_array() as $item){
+			$breadcrumb_info[] = $px->site()->get_page_info($item);
+		}
+		$bros_info = array();
+		foreach($px->site()->get_bros() as $item){
+			$bros_info[] = $px->site()->get_page_info($item);
+		}
+		$bros_all_info = array();
+		foreach($px->site()->get_bros(null, array('filter' => false,)) as $item){
+			$bros_all_info[] = $px->site()->get_page_info($item);
+		}
+		$children_info = array();
+		foreach($px->site()->get_children() as $item){
+			$children_info[] = $px->site()->get_page_info($item);
+		}
+		$children_all_info = array();
+		foreach($px->site()->get_children(null, array('filter' => false,)) as $item){
+			$children_all_info[] = $px->site()->get_page_info($item);
+		}
 		$extraValues = (object) array(
 			'site' => (object) array(
 				'name' => $px->conf()->name ?? '',
 			),
-			'pageInfo' => $navigationInfo->page_info ?? (object) array(),
-			'breadcrumb' => $navigationInfo->breadcrumb_info ?? array(),
-			'parent' => $navigationInfo->parent_info ?? (object) array(),
-			'bros' => $navigationInfo->bros_info ?? array(),
-			'children' => $navigationInfo->children_info ?? array(),
+			'pageInfo' => $px->site()->get_current_page_info() ?? (object) array(),
+			'breadcrumb' => $breadcrumb_info ?? array(),
+			'parent' => $px->site()->get_page_info($px->site()->get_parent()) ?? (object) array(),
+			'bros' => $bros_info ?? array(),
+			'brosAll' => $bros_all_info ?? array(),
+			'children' => $children_info ?? array(),
+			'childrenAll' => $children_all_info ?? array(),
 		);
 
 		$src = $px->bowl()->pull( 'main' );
