@@ -15,6 +15,7 @@ class kflow {
 		$plugin_options = (object) $plugin_options;
 		$tmp_hash = substr(md5(microtime()), 0, 16);
 		$realpath_files_base = $px->realpath_files_cache();
+		$utils = new Utils();
 
 		$extraValues = (object) array(
 			'site' => (object) array(
@@ -47,6 +48,7 @@ class kflow {
 					$src = preg_replace('/'.preg_quote($asset->path, '/').'/s', $px->path_files_cache('/resources/'.basename($asset->path)), $src);
 				}
 			}
+			$src = $utils->bindTwig($src, $extraValues);
 			$px->bowl()->replace( $src, $key );
 		}
 
