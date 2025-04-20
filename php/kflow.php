@@ -22,20 +22,12 @@ class kflow {
 			$breadcrumb_info[] = $px->site()->get_page_info($item);
 		}
 		$bros_info = array();
-		foreach($px->site()->get_bros() as $item){
+		foreach($px->site()->get_bros(null, array('filter' => false,)) as $item){
 			$bros_info[] = $px->site()->get_page_info($item);
 		}
-		$bros_all_info = array();
-		foreach($px->site()->get_bros(null, array('filter' => false,)) as $item){
-			$bros_all_info[] = $px->site()->get_page_info($item);
-		}
 		$children_info = array();
-		foreach($px->site()->get_children() as $item){
-			$children_info[] = $px->site()->get_page_info($item);
-		}
-		$children_all_info = array();
 		foreach($px->site()->get_children(null, array('filter' => false,)) as $item){
-			$children_all_info[] = $px->site()->get_page_info($item);
+			$children_info[] = $px->site()->get_page_info($item);
 		}
 		$extraValues = (object) array(
 			'site' => (object) array(
@@ -45,9 +37,7 @@ class kflow {
 			'breadcrumb' => $breadcrumb_info ?? array(),
 			'parent' => $px->site()->get_page_info($px->site()->get_parent()) ?? (object) array(),
 			'bros' => $bros_info ?? array(),
-			'brosAll' => $bros_all_info ?? array(),
 			'children' => $children_info ?? array(),
-			'childrenAll' => $children_all_info ?? array(),
 		);
 
 		$src = $px->bowl()->pull( 'main' );
