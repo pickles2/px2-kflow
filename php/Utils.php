@@ -2,7 +2,7 @@
 namespace pickles2\px2kflow;
 
 /**
- * Kaleflower Utility
+ * Utility
  *
  * @author Tomoya Koyanagi <tomk79@gmail.com>
  */
