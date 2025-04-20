@@ -3,5 +3,5 @@ Thumbs.db
 scss_cache
 /vendor/
 /px-files/_sys/ram/
-composer.lock
+/composer.lock
 /common/px_resources/

@@ -4,7 +4,7 @@ namespace pickles2\px2kflow;
 /**
  * px2-kflow
  */
-class kflow{
+class kflow {
 
 	/**
 	 * kflow変換処理の実行
@@ -16,14 +16,25 @@ class kflow{
 		$tmp_hash = substr(md5(microtime()), 0, 16);
 		$realpath_files_base = $px->realpath_files_cache();
 
+		$extraValues = (object) array(
+			'site' => (object) array(
+				'name' => $px->conf()->name ?? '',
+			),
+			'pageInfo' => $navigationInfo->page_info ?? (object) array(),
+			'breadcrumb' => $navigationInfo->breadcrumb_info ?? array(),
+			'parent' => $navigationInfo->parent_info ?? (object) array(),
+			'bros' => $navigationInfo->bros_info ?? array(),
+			'children' => $navigationInfo->children_info ?? array(),
+		);
+
 		$src = $px->bowl()->pull( 'main' );
 
 		$kaleflower = new \kaleflower\kaleflower();
-
 		$kflowResult = $kaleflower->build(
 			'./'.$px->get_path_content(),
 			array(
 				'assetsPrefix' => './kflow'.$tmp_hash.'_files/resources/',
+				'extra' => $extraValues,
 			)
 		);
 
