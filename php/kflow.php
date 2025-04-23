@@ -32,6 +32,10 @@ class kflow {
 		$extraValues = (object) array(
 			'site' => (object) array(
 				'name' => $px->conf()->name ?? '',
+				'tagline' => $px->conf()->tagline ?? '',
+				'copyright' => $px->conf()->copyright ?? '',
+				'scheme' => $px->conf()->scheme ?? '',
+				'domain' => $px->conf()->domain ?? '',
 			),
 			'pageInfo' => $px->site()->get_current_page_info() ?? (object) array(),
 			'breadcrumb' => $breadcrumb_info ?? array(),
