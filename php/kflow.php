@@ -30,13 +30,7 @@ class kflow {
 			$children_info[] = $px->site()->get_page_info($item);
 		}
 		$extraValues = (object) array(
-			'site' => (object) array(
-				'name' => $px->conf()->name ?? '',
-				'tagline' => $px->conf()->tagline ?? '',
-				'copyright' => $px->conf()->copyright ?? '',
-				'scheme' => $px->conf()->scheme ?? '',
-				'domain' => $px->conf()->domain ?? '',
-			),
+			'config' => $px->conf(),
 			'pageInfo' => $px->site()->get_current_page_info() ?? (object) array(),
 			'breadcrumb' => $breadcrumb_info ?? array(),
 			'parent' => $px->site()->get_page_info($px->site()->get_parent()) ?? (object) array(),
