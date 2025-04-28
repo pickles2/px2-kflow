@@ -25,12 +25,12 @@ class kflow {
 		}
 
 		$bros_info = array();
-		foreach($px->site()->get_bros(null, array('filter' => false,)) as $item){
+		foreach($px->site()->get_bros() as $item){
 			$bros_info[] = $px->site()->get_page_info($item);
 		}
 
 		$children_info = array();
-		foreach($px->site()->get_children(null, array('filter' => false,)) as $item){
+		foreach($px->site()->get_children() as $item){
 			$children_info[] = $px->site()->get_page_info($item);
 		}
 
@@ -72,6 +72,27 @@ class kflow {
 			'categorySubMenu' => $category_sub_menu_info ?? array(),
 			'href' => function($path) use ($px){
 				return $px->href($path);
+			},
+			'getCurrentPageInfo' => function() use ($px){
+				return $px->site()->get_current_page_info();
+			},
+			'getPageInfo' => function($path) use ($px){
+				return $px->site()->get_page_info($path);
+			},
+			'getBros' => function($path, $options = array()) use ($px){
+				return $px->site()->get_bros($path, $options);
+			},
+			'getChildren' => function($path, $options = array()) use ($px){
+				return $px->site()->get_children($path, $options);
+			},
+			'getCategoryTop' => function($path) use ($px){
+				return $px->site()->get_category_top($path);
+			},
+			'getGlobalMenu' => function() use ($px){
+				return $px->site()->get_global_menu();
+			},
+			'getShoulderMenu' => function() use ($px){
+				return $px->site()->get_shoulder_menu();
 			},
 		);
 
