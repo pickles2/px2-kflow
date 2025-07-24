@@ -20,7 +20,7 @@ $ composer require pickles2/px2-kflow
 ```php
 $conf->funcs->processor->kflow = array(
     // kflow文法を処理する
-    'pickles2\px2kflow\kflow::processor',
+    \pickles2\px2kflow\kflow::processor(),
 
     // html のデフォルトの処理を追加
     $conf->funcs->processor->html,
@@ -29,6 +29,10 @@ $conf->funcs->processor->kflow = array(
 
 
 ## 更新履歴 - Change log
+
+### pickles2/px2-kflow v0.1.3 (リリース日未定)
+
+- より直接的な表現でプラグイン設定できるようになった。
 
 ### pickles2/px2-kflow v0.1.2 (2025年7月12日)
 

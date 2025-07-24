@@ -12,6 +12,10 @@ class kflow {
 	 * @param object $plugin_options プラグイン設定
 	 */
 	public static function processor( $px, $plugin_options ){
+		if( count(func_get_args()) <= 1 ){
+			return __CLASS__.'::'.__FUNCTION__.'('.( is_array($px) ? json_encode($px) : '' ).')';
+		}
+
 		$plugin_options = (object) $plugin_options;
 		$tmp_hash = substr(md5(microtime()), 0, 16);
 		$realpath_files_base = $px->realpath_files_cache();
