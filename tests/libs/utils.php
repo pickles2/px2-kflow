@@ -11,6 +11,7 @@ class utils {
 		if( preg_match('/'.preg_quote('Fatal error:', '/').'/si', $output) ){ return false; }
 		if( preg_match('/'.preg_quote('Warning:', '/').'/si', $output) ){ return false; }
 		if( preg_match('/'.preg_quote('Notice:', '/').'/si', $output) ){ return false; }
+		if( preg_match('/'.preg_quote('Uncaught exception:', '/').'/si', $output) ){ return false; }		
 		return true;
 	}
 
