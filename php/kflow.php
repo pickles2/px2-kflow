@@ -119,6 +119,10 @@ class kflow {
 		// --------------------------------------
 		// HTMLを出力する
 		foreach($kflowResult->html as $key => $src){
+			$src = $src ?? '';
+			if(!is_string($src)){
+				continue;
+			}
 			if( count($kflowResult->assets ?? array()) ){
 				// アセットのパスを置換する
 				foreach($kflowResult->assets as $asset){
