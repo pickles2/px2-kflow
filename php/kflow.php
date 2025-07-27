@@ -11,7 +11,7 @@ class kflow {
 	 * @param object $px Picklesオブジェクト
 	 * @param object $plugin_options プラグイン設定
 	 */
-	public static function processor( $px = null, $plugin_options = array() ){
+	public static function processor( $px = null, $plugin_options = null ){
 		if( count(func_get_args()) <= 1 ){
 			return __CLASS__.'::'.__FUNCTION__.'('.( is_array($px) ? json_encode($px) : '' ).')';
 		}
@@ -111,6 +111,10 @@ class kflow {
 				'extra' => $extraValues,
 			)
 		);
+
+		if( !$kflowResult || !$kflowResult->result ){
+			return true;
+		}
 
 		// --------------------------------------
 		// HTMLを出力する

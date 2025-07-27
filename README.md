@@ -33,6 +33,7 @@ $conf->funcs->processor->kflow = array(
 ### pickles2/px2-kflow v0.1.3 (リリース日未定)
 
 - より直接的な表現でプラグイン設定できるようになった。
+- kflow XML の処理が失敗した場合の処理を改善した。
 
 ### pickles2/px2-kflow v0.1.2 (2025年7月12日)
 
